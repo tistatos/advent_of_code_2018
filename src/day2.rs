@@ -46,29 +46,30 @@ fn main() -> std::io::Result<()> {
 
 
 
+    let mut found = false;
     for i in 0..lines.len() {
         for j in i+1..lines.len() {
             let this_line = &lines[i];
             let that_line = &lines[j];
 
             let mut sum = 0;
+            let mut final_string = String::new();
             for (a,b) in this_line.chars().zip(that_line.chars()) {
                 if a != b {
                     sum += 1;
                 }
-            }
-
-            if sum == 1 {
-                let mut final_string = String::new();
-                for (a,b) in this_line.chars().zip(that_line.chars()) {
-                    if a == b {
-                        final_string.push(a);
-                    }
+                else {
+                    final_string.push(a);
                 }
-                println!("{}", this_line);
-                println!("{}", final_string);
-                println!("Day 2 part two result: {}", final_string);
             }
+            if sum == 1 {
+                println!("Day 2 part two result: {}", final_string);
+                found = true;
+                break;
+            }
+        }
+        if found {
+            break
         }
     }
 
